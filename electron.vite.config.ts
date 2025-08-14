@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   main: {
-    plugins: [externalizeDepsPlugin()]
+    plugins: [externalizeDepsPlugin()],
   },
   preload: {
     plugins: [externalizeDepsPlugin()]
@@ -15,6 +15,15 @@ export default defineConfig({
         '@renderer': resolve('src/renderer/src')
       }
     },
-    plugins: [react()]
-  }
+    plugins: [react()],
+    server:{
+       proxy: {
+          '/dmc-doc': {
+          target: 'http://localhost:9037',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^/, '')
+          }
+      }
+    }
+  },
 })

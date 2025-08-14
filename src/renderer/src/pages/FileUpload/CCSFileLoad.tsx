@@ -1,13 +1,13 @@
 import { ProCard } from "@ant-design/pro-components"
+import { Tabs } from "antd"
+import { proxy } from "valtio"
 import CCSUpload from "./CCSUpload"
 import UploadTable from "./UploadTable"
-import { proxy } from "valtio"
 
 export const fileState = proxy({
     uploadData: [
 
     ] as any[],
-    uploading: false,
 })
 
 
@@ -16,14 +16,35 @@ const CCSFileUpload = () => {
 
     return (
         <div>
-            <CCSUpload />
             <ProCard
                 style={{
                     height: '100vh',
                     minHeight: 800,
                 }}
             >
-                <UploadTable />
+                <Tabs
+                    defaultActiveKey="1"
+                    size={"middle"}
+                    style={{ marginBottom: 32 }}
+                    items={[
+                        {
+                            key: '1',
+                            label: '主单MBL',
+                            children: <>
+                                <CCSUpload />
+                                <UploadTable /></>,
+                        },
+                        {
+                            key: '2',
+                            label: '待新增',
+                            children: <>
+                                <CCSUpload />
+                                <UploadTable /></>,
+                        }]
+                    }
+                />
+
+
             </ProCard>
         </div>
     )
