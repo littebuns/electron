@@ -12,3 +12,18 @@ export async function fileJudge(file: any) {
         }
     });
 }
+
+export async function batchUpload(files: File[]) {
+    const formData = new FormData();
+    files.forEach((file) => {
+        formData.append(`files`, file);
+    });
+    return request<any>({
+        url: `/ccsOrder/common/file/upload/batch`,
+        method: 'post',
+        data: formData,
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    });
+}

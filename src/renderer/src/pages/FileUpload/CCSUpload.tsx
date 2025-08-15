@@ -16,7 +16,7 @@ const CCSUpload = () => {
     customRequest: async (info) => {
       console.log(info);
       const { data } = await fileJudge(info.file);
-      fileState.uploadData = [...fileState.uploadData, { fileName: (info.file as any).name, blNo: data }]
+      fileState.uploadData = [...fileState.uploadData, {    id: Date.now(), fileName: (info.file as any).name, blNo: data }]
       console.log(data);
     },
     onChange(info) {
