@@ -5,27 +5,29 @@ import {
     QuestionCircleFilled,
     SmileFilled,
 } from '@ant-design/icons';
-import { PageContainer, ProLayout } from '@ant-design/pro-components';
+import { PageContainer, ProCard, ProLayout } from '@ant-design/pro-components';
 import { useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import CCSFileUpload from './pages/FileUpload/CCSFileLoad';
 import Welcome from './pages/Welcome';
 
 export default () => {
-    const [pathname, setPathname] = useState('welcome');
-     const navigate = useNavigate();
+    const [pathname, setPathname] = useState('welcome')
+    const navigate = useNavigate();
 
 
     return (
         <div
-            id="test-pro-layout"
+            id="pro-layout"
             style={{
                 height: '100vh',
+                width: '100%',
             }}
         >
             <ProLayout
-                siderWidth={216}
-                collapsed
+                siderWidth={210}
+                defaultCollapsed={true}
+                breakpoint={false}
                 route={{
                     path: '/',
                     routes: [
@@ -34,7 +36,7 @@ export default () => {
                             name: '欢迎',
                             icon: <SmileFilled />,
                         },
-                                                {
+                        {
                             path: '/ccsfileload',
                             name: '磁吸文件上传',
                             icon: <CrownFilled />,
@@ -95,21 +97,19 @@ export default () => {
                     </div>
                 )}
             >
-                <PageContainer >
-                    <Routes>
-                        <Route path="/" element={<Welcome />} />
-                        <Route path="/welcome" element={<Welcome />} />
-                        <Route path="/ccsfileload" element={<CCSFileUpload />} />
-                    </Routes>
-                    {/* <ProCard
+                <div>
+                    <PageContainer
                         style={{
-                            height: '100vh',
                             minHeight: 800,
                         }}
                     >
-                        <div />
-                    </ProCard> */}
-                </PageContainer>
+                        <Routes>
+                            <Route path="/" element={<Welcome />} />
+                            <Route path="/welcome" element={<Welcome />} />
+                            <Route path="/ccsfileload" element={<CCSFileUpload />} />
+                        </Routes>
+                    </PageContainer>
+                </div>
             </ProLayout>
         </div>
     );
