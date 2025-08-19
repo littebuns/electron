@@ -5,7 +5,7 @@ import {
     QuestionCircleFilled,
     SmileFilled,
 } from '@ant-design/icons';
-import { PageContainer, ProCard, ProLayout } from '@ant-design/pro-components';
+import { PageContainer, ProLayout } from '@ant-design/pro-components';
 import { useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import CCSFileUpload from './pages/FileUpload/CCSFileLoad';

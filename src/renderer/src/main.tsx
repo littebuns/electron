@@ -1,14 +1,21 @@
 import './assets/main.css'
 
-import { StrictMode } from 'react'
+import { App, ConfigProvider } from 'antd'
 import { createRoot } from 'react-dom/client'
-import Layout from './layout'
 import { BrowserRouter } from 'react-router-dom'
+import Layout from './layout'
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <BrowserRouter>
-      <Layout />
-    </BrowserRouter>
-  </StrictMode>
-)
+
+const container = document.getElementById('root')
+// 用条件判断替代非空断言操作符，提高代码安全性
+if (container) {
+  createRoot(container).render(
+    <ConfigProvider>
+      <App style={{width: '100%'}}>
+        <BrowserRouter>
+          <Layout />
+        </BrowserRouter>
+      </App>
+    </ConfigProvider> as any
+  )
+}
