@@ -1,5 +1,5 @@
 import { ProCard } from "@ant-design/pro-components"
-import { Tabs } from "antd"
+import { Divider, Tabs } from "antd"
 import { proxy } from "valtio"
 import CCSUpload from "./CCSUpload"
 import UploadTable from "./UploadTable"
@@ -32,15 +32,17 @@ const CCSFileUpload = () => {
                             label: '主单MBL',
                             children: <>
                                 <CCSUpload />
+                                <Divider dashed />
                                 <UploadTable /></>,
                         },
-                        {
-                            key: '2',
-                            label: '待新增',
-                            children: <>
-                                <CCSUpload />
-                                <UploadTable /></>,
-                        }]
+                        // {
+                        //     key: '2',
+                        //     label: '待新增',
+                        //     children: <>
+                        //         <CCSUpload />
+                        //         <UploadTable /></>,
+                        // }
+                    ]
                     }
                 />
 

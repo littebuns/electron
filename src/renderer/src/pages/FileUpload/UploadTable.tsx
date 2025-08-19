@@ -1,5 +1,5 @@
 import type { GetRef, InputRef, TableProps } from 'antd';
-import { Form, Input, Popconfirm, Table } from 'antd';
+import { Button, Col, Form, Input, Popconfirm, Row, Space, Table } from 'antd';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useSnapshot } from 'valtio';
 import { fileState } from './CCSFileLoad';
@@ -109,7 +109,7 @@ type ColumnTypes = Exclude<TableProps<DataType>['columns'], undefined>;
 
 const UploadTable: React.FC = () => {
 
-    const dataSource = useSnapshot(fileState.uploadData);
+    const dataSource = useSnapshot(fileState).uploadData;
 
 
     const handleDelete = (key: React.Key) => {
@@ -189,6 +189,12 @@ const UploadTable: React.FC = () => {
                 dataSource={dataSource}
                 columns={columns as ColumnTypes}
             />
+            <Row justify="end" style={{ marginTop: 20 }}>
+                <Button type="primary" style={{ marginRight: 20 }}>提交</Button>
+                <Button type="primary" onClick={() => fileState.uploadData = []}>重置</Button>
+            </Row>
+
+
         </div>
     );
 };
