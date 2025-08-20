@@ -1,4 +1,4 @@
-appId: com.dmC.app
+appId: com.dmc.app
 productName: my-app
 directories:
   buildResources: build
@@ -14,10 +14,12 @@ asarUnpack:
 win:
   executableName: my-app
 nsis:
+  oneClick: false
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
   uninstallDisplayName: ${productName}
   createDesktopShortcut: always
+  allowToChangeInstallationDirectory: true 
 mac:
   entitlementsInherit: build/entitlements.mac.plist
   extendInfo:
@@ -40,6 +42,6 @@ appImage:
 npmRebuild: false
 publish:
   provider: generic
-  url: https://example.com/auto-updates
+  url: http://120.25.161.140:10067/dmc
 electronDownload:
   mirror: https://npmmirror.com/mirrors/electron/

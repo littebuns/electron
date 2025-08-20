@@ -1,5 +1,5 @@
 import type { GetRef, InputRef, TableProps } from 'antd';
-import { Button, Col, Form, Input, Popconfirm, Row, Space, Table } from 'antd';
+import { Button, Form, Input, Popconfirm, Row, Table } from 'antd';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useSnapshot } from 'valtio';
 import { fileState } from './CCSFileLoad';
