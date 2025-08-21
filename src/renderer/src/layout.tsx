@@ -12,6 +12,8 @@ import CCSFileUpload from './pages/FileUpload/CCSFileLoad';
 import Welcome from './pages/Welcome';
 
 export default () => {
+
+    const ipcHandle = (): void => window.electron.ipcRenderer.send('check-for-updates')
     const [pathname, setPathname] = useState('welcome')
     const navigate = useNavigate();
 
@@ -82,8 +84,8 @@ export default () => {
                     if (props.isMobile) return [];
                     return [
                         <InfoCircleFilled key="InfoCircleFilled" />,
-                        <QuestionCircleFilled key="QuestionCircleFilled" />,
-                        <GithubFilled key="GithubFilled" />,
+                        <QuestionCircleFilled key="QuestionCircleFilled" onClick={ipcHandle} />,
+                        // <GithubFilled key="GithubFilled" />,
                     ];
                 }}
                 menuItemRender={(item, dom) => (

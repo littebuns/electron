@@ -1,8 +1,11 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron'
+import { app, shell, BrowserWindow, ipcMain, dialog } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import { autoUpdater } from 'electron-updater'
 
+// 添加这行来强制在开发环境中检查更新
+autoUpdater.forceDevUpdateConfig = true;
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -30,14 +33,41 @@ function createWindow(): void {
   // Load the remote URL for development or the local html file for production.
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
     console.log('dev' + process.env['ELECTRON_RENDERER_URL']);
-    
     mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'])
   } else {
     console.log('prod');
-    
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
 }
+
+// 处理更新事件
+autoUpdater.on('update-available', () => {
+  // 弹出确认对话框
+  dialog.showMessageBox({
+    type: 'question',
+    buttons: ['下载', '取消'],
+    title: '更新可用',
+    message: '新版本已发布，是否下载更新？',
+  }).then((result) => {
+    if (result.response === 0) { // 用户选择“下载”
+      autoUpdater.downloadUpdate();
+    } else {
+      console.log('用户取消了更新下载');
+    }
+  });
+});
+
+autoUpdater.on('update-downloaded', (info) => {
+  dialog.showMessageBox({
+    type: 'info',
+    title: '更新下载完成',
+    message: '请重启应用以应用更新。',
+  }).then(() => {
+    autoUpdater.quitAndInstall();
+  });
+});
+
+
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -53,11 +83,14 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window)
   })
 
-  // IPC test
-  ipcMain.on('ping', () => console.log('pong'))
 
   createWindow()
-
+  // IPC test
+  ipcMain.on('ping', () => console.log('pong'))
+  ipcMain.on('check-for-updates', () => {
+    autoUpdater.checkForUpdatesAndNotify();
+  });
+  autoUpdater.checkForUpdatesAndNotify();
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
