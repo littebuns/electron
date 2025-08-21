@@ -1,11 +1,11 @@
 import {
     CrownFilled,
-    GithubFilled,
     InfoCircleFilled,
-    QuestionCircleFilled,
-    SmileFilled,
+    ReloadOutlined,
+    SmileFilled
 } from '@ant-design/icons';
 import { PageContainer, ProLayout } from '@ant-design/pro-components';
+import { Modal, Tooltip } from 'antd';
 import { useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import CCSFileUpload from './pages/FileUpload/CCSFileLoad';
@@ -16,7 +16,15 @@ export default () => {
     const ipcHandle = (): void => window.electron.ipcRenderer.send('check-for-updates')
     const [pathname, setPathname] = useState('welcome')
     const navigate = useNavigate();
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
 
     return (
         <div
@@ -83,8 +91,24 @@ export default () => {
                 actionsRender={(props) => {
                     if (props.isMobile) return [];
                     return [
-                        <InfoCircleFilled key="InfoCircleFilled" />,
-                        <QuestionCircleFilled key="QuestionCircleFilled" onClick={ipcHandle} />,
+                        <Tooltip title="信息" >
+                            <InfoCircleFilled key="InfoCircleFilled" onClick={showModal} />
+                            <Modal
+                                title="基础信息"
+                                closable={{ 'aria-label': 'Custom Close Button' }}
+                                open={isModalOpen}
+                                onOk={handleOk}
+                            >
+                                <p>Some contents...</p>
+                                <p>Some contents...</p>
+                                <p>Some contents...</p>
+                            </Modal>
+                        </Tooltip>,
+                        <Tooltip title="检查更新">
+                            <ReloadOutlined key="QuestionCircleFilled" onClick={ipcHandle} />
+
+                        </Tooltip>
+
                         // <GithubFilled key="GithubFilled" />,
                     ];
                 }}
