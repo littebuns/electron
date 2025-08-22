@@ -57,7 +57,7 @@ autoUpdater.on('update-available', () => {
   });
 });
 
-autoUpdater.on('update-downloaded', (info) => {
+autoUpdater.on('update-downloaded', () => {
   dialog.showMessageBox({
     type: 'info',
     title: '更新下载完成',

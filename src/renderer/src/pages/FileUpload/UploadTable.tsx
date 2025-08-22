@@ -1,8 +1,9 @@
 import type { GetRef, InputRef, TableProps } from 'antd';
-import { Button, Form, Input, Popconfirm, Row, Table } from 'antd';
+import { Button, Form, Input, message, Popconfirm, Row, Table } from 'antd';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useSnapshot } from 'valtio';
 import { fileState } from './CCSFileLoad';
+import { extFileSave } from '@renderer/service/fileJudge';
 
 type FormInstance<T> = GetRef<typeof Form<T>>;
 
@@ -124,14 +125,14 @@ const UploadTable: React.FC = () => {
             dataIndex: 'fileName',
         },
         {
-            title: 'blNo',
-            dataIndex: 'blNo',
+            title: 'sblNo',
+            dataIndex: 'sblNo',
             width: '30%',
             editable: true,
         },
         {
-            title: 'ossUrl',
-            dataIndex: 'ossUrl',
+            title: 'fileStore',
+            dataIndex: 'fileStore',
             hidden: true
         },
         {
@@ -180,6 +181,23 @@ const UploadTable: React.FC = () => {
         };
     });
 
+    const uploadExtFile = async () => {
+
+        const uploadData = dataSource.map((data) =>
+        ({
+            ...data,
+            fileTypeCode: 'mbl',
+            fileTypeId: 144,
+            id: null
+        }))
+        const { success } = await extFileSave(uploadData as any)
+        if (success) {
+            message.success('上传成功')
+        }
+
+
+    }
+
     return (
         <div>
             <Table<DataType>
@@ -190,7 +208,7 @@ const UploadTable: React.FC = () => {
                 columns={columns as ColumnTypes}
             />
             <Row justify="end" style={{ marginTop: 20 }}>
-                <Button type="primary" style={{ marginRight: 20 }}>提交</Button>
+                <Button type="primary" style={{ marginRight: 20 }} onClick={uploadExtFile}>提交</Button>
                 <Button type="primary" onClick={() => fileState.uploadData = []}>重置</Button>
             </Row>
 

@@ -16,13 +16,18 @@ export default defineConfig({
       }
     },
     plugins: [react()],
-    server:{
-       proxy: {
-          '/dmc-doc': {
+    server: {
+      proxy: {
+        '/dmc-doc': {
           target: 'http://localhost:9037',
           changeOrigin: true,
           rewrite: (path) => path.replace(/^/, '')
-          }
+        },
+        '/ccsOrder': {
+          target: 'http://47.111.16.130:9070',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/ccsOrder/, '')
+        }
       }
     }
   },

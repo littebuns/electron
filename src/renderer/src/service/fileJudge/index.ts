@@ -1,4 +1,6 @@
+import { ResponseResultType } from "../interface";
 import request from "../request";
+import { extFile } from "./interface";
 
 export async function fileJudge(file: any) {
     const formData = new FormData();
@@ -27,3 +29,12 @@ export async function batchUpload(files: File[]) {
         }
     });
 }
+
+
+export const extFileSave = (data: extFile[]) => {
+    return request<ResponseResultType<any>>({
+        url: `/ccsOrder/ccAttachFile/sbl/extFileSave`,
+        method: 'post',
+        data: data,
+    });
+};
