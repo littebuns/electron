@@ -19,7 +19,8 @@ export default defineConfig({
     server: {
       proxy: {
         '/dmc-doc': {
-          target: 'http://localhost:9037',
+          target: 'http://119.23.55.102:8587',
+          // target: 'http://localhost:9037',
           changeOrigin: true,
           rewrite: (path) => path.replace(/^/, '')
         },

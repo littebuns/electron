@@ -2,7 +2,7 @@ import './assets/main.css'
 
 import { App, ConfigProvider } from 'antd'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 import Layout from './layout'
 
 
@@ -12,9 +12,9 @@ if (container) {
   createRoot(container).render(
     <ConfigProvider>
       <App style={{width: '100%'}}>
-        <BrowserRouter>
+        <HashRouter>
           <Layout />
-        </BrowserRouter>
+        </HashRouter>
       </App>
     </ConfigProvider> as any
   )

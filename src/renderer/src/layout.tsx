@@ -84,7 +84,7 @@ export default () => {
                     pathname,
                 }}
                 avatarProps={{
-                    src: 'https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg',
+                    // src: 'https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg',
                     title: 'DMC',
                     size: 'small',
                 }}
@@ -133,6 +133,7 @@ export default () => {
                             <Route path="/" element={<Welcome />} />
                             <Route path="/welcome" element={<Welcome />} />
                             <Route path="/ccsfileload" element={<CCSFileUpload />} />
+                            <Route path="*" element={<Welcome />} />
                         </Routes>
                     </PageContainer>
                 </div>
